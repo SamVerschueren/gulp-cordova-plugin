@@ -11,22 +11,25 @@
 var path = require('path'),
     through = require('through2'),
     gutil = require('gulp-util'),
-    Q = require('q'),
-    cordovaLib = require('cordova-lib'),
-    cordova = cordovaLib.cordova;
+    cordova = require('cordova-lib').cordova.raw;
 
 module.exports = function(plugin) {
 
     return through.obj(function(file, enc, cb) {
         process.env.PWD = file.path;
 
+        // Pipe the file to the next step
         this.push(file);
 
-        Q.fcall(function() {
-            console.log('\tadd ' + plugin);
+        // Print which plugin will be added
+        console.log('\tadd ' + plugin);
 
-            cordova.plugin('add', plugin);
-        })
-        .then(cb);
+        // Execute the cordova plugin add command
+        cordova.plugin('add', plugin)
+            .then(cb)
+            .catch(function(err) {
+                // Return an error if something happened
+                cb(new gutil.PluginError('gulp-cordova-plugin', err.message));
+            });
     });
 };
