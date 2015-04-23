@@ -20,8 +20,8 @@ var gulp = require('gulp'),
 gulp.task('build', function() {
     return gulp.src('www')
         .pipe(create())
-        .pipe(plugin('org.apache.cordova.dialogs')
-        .pipe(plugin('org.apache.cordova.camera')));
+        .pipe(plugin('org.apache.cordova.dialogs'))
+        .pipe(plugin('org.apache.cordova.camera'));
 });
 ```
 
