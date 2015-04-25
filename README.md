@@ -30,7 +30,8 @@ By using this plugin, you can add Cordova plugins to your Cordova project. In th
 
 ## Related
 
-See [`gulp-cordova-create`](https://github.com/SamVerschueren/gulp-cordova-create) for creating a cordova project.
+- [`gulp-cordova-create`](https://github.com/SamVerschueren/gulp-cordova-create) for creating a cordova project.
+- [`gulp-cordova-build-android`](https://github.com/SamVerschueren/gulp-cordova-build-android) for building the cordova project for the Android platform.
 
 ## Contributors
 
