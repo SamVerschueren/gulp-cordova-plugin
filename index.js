@@ -21,6 +21,8 @@ module.exports = function(plugin) {
         // Pipe the file to the next step
         this.push(file);
 
+        cb();
+    }, function(cb) {
         // Print which plugin will be added
         console.log('\tadd ' + plugin);
 
