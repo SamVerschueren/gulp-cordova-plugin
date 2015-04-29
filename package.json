@@ -1,7 +1,7 @@
 {
   "name": "gulp-cordova-plugin",
-  "version": "0.0.1",
-  "description": "Second step in creating a cordova project with gulp. Adding cordova plugins.",
+  "version": "1.0.0",
+  "description": "Add plugins to your cordova project.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -12,6 +12,7 @@
   },
   "keywords": [
     "gulp",
+    "gulpjs",
     "cordova",
     "plugin",
     "add"

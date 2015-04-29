@@ -1,6 +1,6 @@
 # gulp-cordova-plugin
 
-> Adding plugins to your cordova project
+> Add plugins to your cordova project.
 
 ## Installation
 
