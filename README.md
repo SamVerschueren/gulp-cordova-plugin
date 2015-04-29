@@ -1,14 +1,12 @@
 # gulp-cordova-plugin
 
-> Second step in creating a cordova project with gulp. Adding cordova plugins.
+> Adding plugins to your cordova project
 
 ## Installation
 
 ```bash
 npm install --save-dev gulp-cordova-plugin
 ```
-
-**Not yet available**
 
 ## Usage
 
@@ -18,20 +16,18 @@ var gulp = require('gulp'),
     plugin = require('gulp-cordova-plugin');
 
 gulp.task('build', function() {
-    return gulp.src('www')
+    return gulp.src('dist')
         .pipe(create())
         .pipe(plugin('org.apache.cordova.dialogs'))
         .pipe(plugin('org.apache.cordova.camera'));
 });
 ```
 
-By using this plugin, you can add Cordova plugins to your Cordova project. In this case, both ```org.apache.cordova.dialogs``` and
-```org.apache.cordova.camera``` will be added.
+This will add both plugins to the cordova project.
 
 ## Related
 
-- [`gulp-cordova-create`](https://github.com/SamVerschueren/gulp-cordova-create) for creating a cordova project.
-- [`gulp-cordova-build-android`](https://github.com/SamVerschueren/gulp-cordova-build-android) for building the cordova project for the Android platform.
+See [`gulp-cordova`](https://github.com/SamVerschueren/gulp-cordova) for the full list of available packages.
 
 ## Contributors
 

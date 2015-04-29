@@ -13,9 +13,11 @@ var path = require('path'),
     gutil = require('gulp-util'),
     cordova = require('cordova-lib').cordova.raw;
 
+// export the module
 module.exports = function(plugin) {
 
     return through.obj(function(file, enc, cb) {
+        // Change the working directory
         process.env.PWD = file.path;
 
         // Pipe the file to the next step
