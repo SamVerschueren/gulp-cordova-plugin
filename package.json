@@ -1,6 +1,6 @@
 {
   "name": "gulp-cordova-plugin",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Add plugins to your cordova project.",
   "main": "index.js",
   "scripts": {
