@@ -26,7 +26,7 @@ module.exports = function(plugin) {
         cb();
     }, function(cb) {
         // Print which plugin will be added
-        console.log('\tadd ' + plugin);
+        gutil.log('\tadd ' + plugin);
 
         // Execute the cordova plugin add command
         cordova.plugin('add', plugin)
