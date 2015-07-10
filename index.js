@@ -43,6 +43,12 @@ module.exports = function(plugins) {
     });
 };
 
+/**
+ * Returns a promise that will add the plugin to the current working
+ * directory cordova project.
+ * 
+ * @param {String} plugin   The name of the plugin that should be added.
+ */
 function add(plugin) {
     return Q.fcall(function() {
         // Print which plugin will be added
