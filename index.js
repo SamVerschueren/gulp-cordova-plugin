@@ -12,7 +12,8 @@ var path = require('path'),
     through = require('through2'),
     gutil = require('gulp-util'),
     cordova = require('cordova-lib').cordova.raw,
-    Q = require('q');
+    Q = require('q'),
+    shell = require('shelljs');
 
 // export the module
 module.exports = function(plugins) {
@@ -55,6 +56,6 @@ function add(plugin) {
         gutil.log('\tadd ' + plugin);
         
         // Add the plugin
-        return cordova.plugin('add', plugin);
+        return shell.exec('cordova plugin add '+plugin);
     });
 }
