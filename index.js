@@ -11,7 +11,6 @@
 var path = require('path'),
     through = require('through2'),
     gutil = require('gulp-util'),
-    cordova = require('cordova-lib').cordova.raw,
     Q = require('q'),
     shell = require('shelljs');
 
