@@ -31,7 +31,7 @@ module.exports = function(plugins) {
         cb();
     }, function(cb) {
         var promises = plugins.map(add);
-        
+
         Q.all(promises)
             .then(function() {
                 // Call the callback if all the plugins are added correctly
@@ -47,15 +47,15 @@ module.exports = function(plugins) {
 /**
  * Returns a promise that will add the plugin to the current working
  * directory cordova project.
- * 
+ *
  * @param {String} plugin   The name of the plugin that should be added.
  */
 function add(plugin) {
     return Q.fcall(function() {
         // Print which plugin will be added
         gutil.log('\tadd ' + plugin);
-        
+
         // Add the plugin
-        return shell.exec('cordova plugin add '+plugin);
+        return shell.exec('cordova plugin add '+plugin, {silent: true});
     });
 }
