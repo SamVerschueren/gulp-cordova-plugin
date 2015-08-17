@@ -12,13 +12,22 @@ var path = require('path'),
     through = require('through2'),
     gutil = require('gulp-util'),
     cordova = require('cordova-lib').cordova.raw,
-    Q = require('q');
+    Q = require('q'),
+    _ = require('lodash');
 
 // export the module
-module.exports = function(plugins) {
+module.exports = function(plugins, options) {
 
-    // Make sure it is an array of plugins
-    plugins = [].concat(plugins);
+    options = options || {};
+
+    var pluginList;
+    
+    if(Array.isArray(plugins) || _.isPlainObject(plugins)) {
+        pluginList = plugins;
+    }
+    else {
+        pluginList = [plugins];
+    }
 
     return through.obj(function(file, enc, cb) {
         // Change the working directory
@@ -29,7 +38,24 @@ module.exports = function(plugins) {
 
         cb();
     }, function(cb) {
-        var promises = plugins.map(add);
+        var promises = _.map(pluginList, function(plugin, key) {
+            if(_.isPlainObject(pluginList)) {
+                // If the plugin list is an object, we should switch the plugin and key
+                var temp = key;
+                
+                key = plugin;
+                plugin = temp;
+            }
+            
+            var opts = {};
+            
+            if(key.variables || options.variables) {
+                // Add the cli variables
+                opts.cli_variables = key.variables || options.variables;
+            }
+            
+            return add(plugin, opts);
+        });
         
         Q.all(promises)
             .then(function() {
@@ -48,13 +74,14 @@ module.exports = function(plugins) {
  * directory cordova project.
  * 
  * @param {String} plugin   The name of the plugin that should be added.
+ * @param {Object} opts     The options object.
  */
-function add(plugin) {
+function add(plugin, opts) {    
     return Q.fcall(function() {
         // Print which plugin will be added
         gutil.log('\tadd ' + plugin);
         
-        // Add the plugin
-        return cordova.plugin('add', plugin);
+        // Add the plugin without options
+        return cordova.plugin('add', plugin, opts);
     });
 }
