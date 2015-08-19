@@ -54,6 +54,12 @@ module.exports = function(plugins, options) {
                 opts.cli_variables = key.variables || options.variables;
             }
             
+            if(key.version || options.version || _.isString(key)) {
+                // Add the version to the options object
+                opts.version = key.version || options.version || key;
+            }
+            
+            // Fire the add method
             return add(plugin, opts);
         });
         
@@ -78,6 +84,9 @@ module.exports = function(plugins, options) {
  */
 function add(plugin, opts) {    
     return Q.fcall(function() {
+        // Make sure the version is attached if it is specified        
+        plugin = opts.version ? plugin + '@' + opts.version : plugin;
+        
         // Print which plugin will be added
         gutil.log('\tadd ' + plugin);
         
