@@ -24,6 +24,7 @@ var preference = require('./');
 describe('gulp-cordova-plugin', function() {
     
     beforeEach(function() {
+        // Set the plugin method to a spy function
         cordova.plugin = sinon.spy();
     });
     
