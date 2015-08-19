@@ -1,6 +1,6 @@
 # gulp-cordova-plugin
 
-[![Build Status](http://img.shields.io/travis/SamVerschueren/gulp-cordova-plugin.svg)](https://travis-ci.org/SamVerschueren/gulp-cordova-plugin)
+[![Build Status](https://travis-ci.org/SamVerschueren/gulp-cordova-plugin.svg?branch=master)](https://travis-ci.org/SamVerschueren/gulp-cordova-plugin)
 
 > Add plugins to your cordova project.
 
