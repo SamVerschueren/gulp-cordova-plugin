@@ -19,7 +19,7 @@ var chai = require('chai'),
 chai.should();
 chai.use(sinonChai);
 
-var preference = require('../');
+var preference = require('./');
 
 describe('gulp-cordova-plugin', function() {
     
@@ -100,6 +100,62 @@ describe('gulp-cordova-plugin', function() {
             
             stream.on('end', function() {
                 cordova.plugin.should.have.been.calledWith('add', 'plugin.google.maps@latest', {cli_variables: vars});
+                
+                done();
+            });
+            
+            stream.on('data', function() {});
+            
+            stream.end();
+        });
+    });
+    
+    describe('Plugin list', function() {
+        
+        it('Should call the add plugin method twice if two plugins are provided', function(done) {
+            var stream = preference([
+                'org.apache.cordova.dialogs',
+                'org.apache.cordova.camera'
+            ]);
+            
+            stream.on('end', function() {
+                cordova.plugin.should.have.been.calledTwice;
+                
+                done();
+            });
+            
+            stream.on('data', function() {});
+            
+            stream.end();
+        });
+        
+        it('Should add the `org.apache.cordova.dialogs` and `org.apache.cordova.camera` plugins', function(done) {
+            var stream = preference([
+                'org.apache.cordova.dialogs',
+                'org.apache.cordova.camera'
+            ]);
+            
+            stream.on('end', function() {
+                cordova.plugin.should.have.been.calledWith('add', 'org.apache.cordova.dialogs', {});
+                cordova.plugin.should.have.been.calledWith('add', 'org.apache.cordova.camera', {});
+                
+                done();
+            });
+            
+            stream.on('data', function() {});
+            
+            stream.end();
+        });
+        
+        it('Should do nothing with the options object if provided', function(done) {
+            var stream = preference([
+                'org.apache.cordova.dialogs',
+                'org.apache.cordova.camera'
+            ], {version: '1.0.0', variables: {foo: 'bar'}});
+            
+            stream.on('end', function() {
+                cordova.plugin.should.have.been.calledWith('add', 'org.apache.cordova.dialogs', {});
+                cordova.plugin.should.have.been.calledWith('add', 'org.apache.cordova.camera', {});
                 
                 done();
             });

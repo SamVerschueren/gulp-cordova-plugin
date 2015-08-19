@@ -24,6 +24,7 @@ module.exports = function(plugins, options) {
     
     if(Array.isArray(plugins) || _.isPlainObject(plugins)) {
         pluginList = plugins;
+        options = {};
     }
     else {
         pluginList = [plugins];
