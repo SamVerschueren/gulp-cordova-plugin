@@ -166,4 +166,111 @@ describe('gulp-cordova-plugin', function() {
             stream.end();
         });
     });
+    
+    describe('Plugin object', function() {
+        
+        it('Should call the add plugin method twice if two plugins are provided', function(done) {
+            var stream = preference({
+                'org.apache.cordova.dialogs': 'latest',
+                'org.apache.cordova.camera': '1.0.0'
+            });
+            
+            stream.on('end', function() {
+                cordova.plugin.should.have.been.calledTwice;
+                
+                done();
+            });
+            
+            stream.on('data', function() {});
+            
+            stream.end();
+        });
+        
+        it('Should add the `org.apache.cordova.dialogs@latest` and `org.apache.cordova.camera@1.0.0` plugins', function(done) {
+            var stream = preference({
+                'org.apache.cordova.dialogs': 'latest',
+                'org.apache.cordova.camera': '1.0.0'
+            });
+            
+            stream.on('end', function() {
+                cordova.plugin.should.have.been.calledWith('add', 'org.apache.cordova.dialogs@latest', {});
+                cordova.plugin.should.have.been.calledWith('add', 'org.apache.cordova.camera@1.0.0', {});
+                
+                done();
+            });
+            
+            stream.on('data', function() {});
+            
+            stream.end();
+        });
+        
+        it('Should add the `org.apache.cordova.dialogs@latest`, `org.apache.cordova.camera@1.0.0` and `plugin.google.maps` with variables', function(done) {
+            var stream = preference({
+                'org.apache.cordova.dialogs': 'latest',
+                'org.apache.cordova.camera': '1.0.0',
+                'plugin.google.maps': {
+                    variables : {
+                        'API_KEY_FOR_ANDROID': 'ANDROID_KEY',
+                        'API_KEY_FOR_IOS': 'IOS_KEY'
+                    }
+                }
+            });
+            
+            stream.on('end', function() {
+                cordova.plugin.should.have.been.calledWith('add', 'org.apache.cordova.dialogs@latest', {});
+                cordova.plugin.should.have.been.calledWith('add', 'org.apache.cordova.camera@1.0.0', {});
+                cordova.plugin.should.have.been.calledWith('add', 'plugin.google.maps', { cli_variables: { 'API_KEY_FOR_ANDROID': 'ANDROID_KEY', 'API_KEY_FOR_IOS': 'IOS_KEY' }});
+                
+                done();
+            });
+            
+            stream.on('data', function() {});
+            
+            stream.end();
+        });
+        
+        it('Should add the `org.apache.cordova.dialogs@latest`, `org.apache.cordova.camera@1.0.0` and `plugin.google.maps@1.0.0` with variables', function(done) {
+            var stream = preference({
+                'org.apache.cordova.dialogs': 'latest',
+                'org.apache.cordova.camera': '1.0.0',
+                'plugin.google.maps': {
+                    version: '1.0.0',
+                    variables : {
+                        'API_KEY_FOR_ANDROID': 'ANDROID_KEY',
+                        'API_KEY_FOR_IOS': 'IOS_KEY'
+                    }
+                }
+            });
+            
+            stream.on('end', function() {
+                cordova.plugin.should.have.been.calledWith('add', 'org.apache.cordova.dialogs@latest', {});
+                cordova.plugin.should.have.been.calledWith('add', 'org.apache.cordova.camera@1.0.0', {});
+                cordova.plugin.should.have.been.calledWith('add', 'plugin.google.maps@1.0.0', { cli_variables: { 'API_KEY_FOR_ANDROID': 'ANDROID_KEY', 'API_KEY_FOR_IOS': 'IOS_KEY' }});
+                
+                done();
+            });
+            
+            stream.on('data', function() {});
+            
+            stream.end();
+        });
+        
+        it('Should do nothing with the options object if provided', function(done) {
+            var stream = preference({
+                'org.apache.cordova.dialogs': 'latest',
+                'org.apache.cordova.camera': '1.0.0'
+            }, {version: '1.0.0', variables: {foo: 'bar'}});
+            
+            stream.on('end', function() {
+                cordova.plugin.should.have.been.calledWith('add', 'org.apache.cordova.dialogs@latest', {});
+                cordova.plugin.should.have.been.calledWith('add', 'org.apache.cordova.camera@1.0.0', {});
+                
+                done();
+            });
+            
+            stream.on('data', function() {});
+            
+            stream.end();
+        });
+    });
 });
