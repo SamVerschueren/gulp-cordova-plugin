@@ -4,7 +4,7 @@
   "description": "Add plugins to your cordova project.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node_modules/.bin/mocha test"
   },
   "repository": {
     "type": "git",
@@ -32,5 +32,11 @@
     "lodash": "^3.10.1",
     "q": "^1.4.1",
     "through2": "^0.6.5"
+  },
+  "devDependencies": {
+    "chai": "^3.2.0",
+    "mocha": "^2.2.5",
+    "sinon": "^1.15.4",
+    "sinon-chai": "^2.8.0"
   }
 }
