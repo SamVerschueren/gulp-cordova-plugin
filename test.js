@@ -19,7 +19,7 @@ var chai = require('chai'),
 chai.should();
 chai.use(sinonChai);
 
-var preference = require('./');
+var plugin = require('./');
 
 describe('gulp-cordova-plugin', function() {
     
@@ -31,7 +31,7 @@ describe('gulp-cordova-plugin', function() {
     describe('Simple plugin', function() {
         
         it('Should add the `cordova-plugin-globalization` plugin', function(done) {
-            var stream = preference('cordova-plugin-globalization');
+            var stream = plugin('cordova-plugin-globalization');
             
             stream.on('end', function() {
                 cordova.plugin.should.have.been.calledWithExactly('add', 'cordova-plugin-globalization', {});
@@ -45,7 +45,7 @@ describe('gulp-cordova-plugin', function() {
         });
         
         it('Should add the `cordova-plugin-globalization@1.0.0` plugin if the version is provided as 2nd argument', function(done) {
-            var stream = preference('cordova-plugin-globalization', '1.0.0');
+            var stream = plugin('cordova-plugin-globalization', '1.0.0');
             
             stream.on('end', function() {
                 cordova.plugin.should.have.been.calledWith('add', 'cordova-plugin-globalization@1.0.0', {});
@@ -59,7 +59,7 @@ describe('gulp-cordova-plugin', function() {
         });
         
         it('Should add the `cordova-plugin-globalization@1.0.0` plugin if the version is provided in the object as 2nd argument', function(done) {
-            var stream = preference('cordova-plugin-globalization', {version: '1.0.0'});
+            var stream = plugin('cordova-plugin-globalization', {version: '1.0.0'});
             
             stream.on('end', function() {
                 cordova.plugin.should.have.been.calledWith('add', 'cordova-plugin-globalization@1.0.0', {});
@@ -78,7 +78,7 @@ describe('gulp-cordova-plugin', function() {
                 'API_KEY_FOR_IOS': 'IOS_KEY'
             };
             
-            var stream = preference('plugin.google.maps', {variables: vars});
+            var stream = plugin('plugin.google.maps', {variables: vars});
             
             stream.on('end', function() {
                 cordova.plugin.should.have.been.calledWith('add', 'plugin.google.maps', {cli_variables: vars});
@@ -97,7 +97,7 @@ describe('gulp-cordova-plugin', function() {
                 'API_KEY_FOR_IOS': 'IOS_KEY'
             };
             
-            var stream = preference('plugin.google.maps', {version: 'latest', variables: vars});
+            var stream = plugin('plugin.google.maps', {version: 'latest', variables: vars});
             
             stream.on('end', function() {
                 cordova.plugin.should.have.been.calledWith('add', 'plugin.google.maps@latest', {cli_variables: vars});
@@ -111,7 +111,7 @@ describe('gulp-cordova-plugin', function() {
         });
         
         it('Should add the git based `plugin.google.maps`', function(done) {
-            var stream = preference('https://github.com/wf9a5m75/phonegap-googlemaps-plugin');
+            var stream = plugin('https://github.com/wf9a5m75/phonegap-googlemaps-plugin');
             
             stream.on('end', function() {
                 cordova.plugin.should.have.been.calledWith('add', 'https://github.com/wf9a5m75/phonegap-googlemaps-plugin', {});
@@ -125,7 +125,7 @@ describe('gulp-cordova-plugin', function() {
         });
         
         it('Should add the git based `plugin.google.maps` plugin with one trailing slash', function(done) {
-            var stream = preference('https://github.com/wf9a5m75/phonegap-googlemaps-plugin/');
+            var stream = plugin('https://github.com/wf9a5m75/phonegap-googlemaps-plugin/');
             
             stream.on('end', function() {
                 cordova.plugin.should.have.been.calledWith('add', 'https://github.com/wf9a5m75/phonegap-googlemaps-plugin', {});
@@ -139,7 +139,7 @@ describe('gulp-cordova-plugin', function() {
         });
         
         it('Should add the git based `plugin.google.maps` plugin with multiple trailing slashes', function(done) {
-            var stream = preference('https://github.com/wf9a5m75/phonegap-googlemaps-plugin///');
+            var stream = plugin('https://github.com/wf9a5m75/phonegap-googlemaps-plugin///');
             
             stream.on('end', function() {
                 cordova.plugin.should.have.been.calledWith('add', 'https://github.com/wf9a5m75/phonegap-googlemaps-plugin', {});
@@ -153,7 +153,7 @@ describe('gulp-cordova-plugin', function() {
         });
         
         it('Should add the git based `plugin.google.maps` plugin with no version if the version `latest` is provided', function(done) {
-            var stream = preference('https://github.com/wf9a5m75/phonegap-googlemaps-plugin', 'latest');
+            var stream = plugin('https://github.com/wf9a5m75/phonegap-googlemaps-plugin', 'latest');
             
             stream.on('end', function() {
                 cordova.plugin.should.have.been.calledWith('add', 'https://github.com/wf9a5m75/phonegap-googlemaps-plugin', {});
@@ -167,7 +167,7 @@ describe('gulp-cordova-plugin', function() {
         });
         
         it('Should add the git based `plugin.google.maps@1.2.0` plugin if a version is provided', function(done) {
-            var stream = preference('https://github.com/wf9a5m75/phonegap-googlemaps-plugin', '1.2.0');
+            var stream = plugin('https://github.com/wf9a5m75/phonegap-googlemaps-plugin', '1.2.0');
             
             stream.on('end', function() {
                 cordova.plugin.should.have.been.calledWith('add', 'https://github.com/wf9a5m75/phonegap-googlemaps-plugin#v1.2.0', {});
@@ -181,7 +181,7 @@ describe('gulp-cordova-plugin', function() {
         });
         
         it('Should add the git based `plugin.google.maps@1.2.0` plugin if the version is provided in the object as 2nd argument', function(done) {
-            var stream = preference('https://github.com/wf9a5m75/phonegap-googlemaps-plugin', {version: '1.2.0'});
+            var stream = plugin('https://github.com/wf9a5m75/phonegap-googlemaps-plugin', {version: '1.2.0'});
             
             stream.on('end', function() {
                 cordova.plugin.should.have.been.calledWith('add', 'https://github.com/wf9a5m75/phonegap-googlemaps-plugin#v1.2.0', {});
@@ -200,7 +200,7 @@ describe('gulp-cordova-plugin', function() {
                 'API_KEY_FOR_IOS': 'IOS_KEY'
             };
             
-            var stream = preference('https://github.com/wf9a5m75/phonegap-googlemaps-plugin', {variables: vars});
+            var stream = plugin('https://github.com/wf9a5m75/phonegap-googlemaps-plugin', {variables: vars});
             
             stream.on('end', function() {
                 cordova.plugin.should.have.been.calledWith('add', 'https://github.com/wf9a5m75/phonegap-googlemaps-plugin', {cli_variables: vars});
@@ -219,7 +219,7 @@ describe('gulp-cordova-plugin', function() {
                 'API_KEY_FOR_IOS': 'IOS_KEY'
             };
             
-            var stream = preference('https://github.com/wf9a5m75/phonegap-googlemaps-plugin', {version: '1.2.0', variables: vars});
+            var stream = plugin('https://github.com/wf9a5m75/phonegap-googlemaps-plugin', {version: '1.2.0', variables: vars});
             
             stream.on('end', function() {
                 cordova.plugin.should.have.been.calledWith('add', 'https://github.com/wf9a5m75/phonegap-googlemaps-plugin#v1.2.0', {cli_variables: vars});
@@ -238,7 +238,7 @@ describe('gulp-cordova-plugin', function() {
                 'API_KEY_FOR_IOS': 'IOS_KEY'
             };
             
-            var stream = preference('https://github.com/wf9a5m75/phonegap-googlemaps-plugin', {version: 'latest', variables: vars});
+            var stream = plugin('https://github.com/wf9a5m75/phonegap-googlemaps-plugin', {version: 'latest', variables: vars});
             
             stream.on('end', function() {
                 cordova.plugin.should.have.been.calledWith('add', 'https://github.com/wf9a5m75/phonegap-googlemaps-plugin', {cli_variables: vars});
@@ -255,7 +255,7 @@ describe('gulp-cordova-plugin', function() {
     describe('Plugin list', function() {
         
         it('Should call the add plugin method twice if two plugins are provided', function(done) {
-            var stream = preference([
+            var stream = plugin([
                 'org.apache.cordova.dialogs',
                 'org.apache.cordova.camera',
                 'https://github.com/kristianhristov/cordova-cookie-master'
@@ -273,7 +273,7 @@ describe('gulp-cordova-plugin', function() {
         });
         
         it('Should add the `org.apache.cordova.dialogs` and `org.apache.cordova.camera` plugins', function(done) {
-            var stream = preference([
+            var stream = plugin([
                 'org.apache.cordova.dialogs',
                 'org.apache.cordova.camera',
                 'https://github.com/kristianhristov/cordova-cookie-master'
@@ -293,7 +293,7 @@ describe('gulp-cordova-plugin', function() {
         });
         
         it('Should do nothing with the options object if provided', function(done) {
-            var stream = preference([
+            var stream = plugin([
                 'org.apache.cordova.dialogs',
                 'org.apache.cordova.camera'
             ], {version: '1.0.0', variables: {foo: 'bar'}});
@@ -314,7 +314,7 @@ describe('gulp-cordova-plugin', function() {
     describe('Plugin object', function() {
         
         it('Should call the add plugin method twice if two plugins are provided', function(done) {
-            var stream = preference({
+            var stream = plugin({
                 'org.apache.cordova.dialogs': 'latest',
                 'org.apache.cordova.camera': '1.0.0'
             });
@@ -331,7 +331,7 @@ describe('gulp-cordova-plugin', function() {
         });
         
         it('Should add the `org.apache.cordova.dialogs@latest` and `org.apache.cordova.camera@1.0.0` plugins', function(done) {
-            var stream = preference({
+            var stream = plugin({
                 'org.apache.cordova.dialogs': 'latest',
                 'org.apache.cordova.camera': '1.0.0',
                 'https://github.com/wf9a5m75/phonegap-googlemaps-plugin': 'latest'
@@ -351,7 +351,7 @@ describe('gulp-cordova-plugin', function() {
         });
         
         it('Should add the `org.apache.cordova.dialogs@latest`, `org.apache.cordova.camera@1.0.0` and `plugin.google.maps` with variables', function(done) {
-            var stream = preference({
+            var stream = plugin({
                 'org.apache.cordova.dialogs': 'latest',
                 'org.apache.cordova.camera': '1.0.0',
                 'plugin.google.maps': {
@@ -376,7 +376,7 @@ describe('gulp-cordova-plugin', function() {
         });
         
         it('Should add the `org.apache.cordova.dialogs@latest`, `org.apache.cordova.camera@1.0.0` and `plugin.google.maps@1.0.0` with variables', function(done) {
-            var stream = preference({
+            var stream = plugin({
                 'org.apache.cordova.dialogs': 'latest',
                 'org.apache.cordova.camera': '1.0.0',
                 'plugin.google.maps': {
@@ -402,7 +402,7 @@ describe('gulp-cordova-plugin', function() {
         });
         
         it('Should add the git based `https://github.com/wf9a5m75/phonegap-googlemaps-plugin` plugin', function(done) {
-            var stream = preference({
+            var stream = plugin({
                 'https://github.com/wf9a5m75/phonegap-googlemaps-plugin': {
                     variables : {
                         'API_KEY_FOR_ANDROID': 'ANDROID_KEY',
@@ -423,7 +423,7 @@ describe('gulp-cordova-plugin', function() {
         });
         
         it('Should add the git based `plugin.google.maps` plugin with variables if the version `latest` and variables are added in the options object', function(done) {
-            var stream = preference({
+            var stream = plugin({
                 'https://github.com/wf9a5m75/phonegap-googlemaps-plugin': {
                     version: 'latest',
                     variables : {
@@ -445,7 +445,7 @@ describe('gulp-cordova-plugin', function() {
         });
         
         it('Should add the git based `plugin.google.maps@1.2.0` plugin with the version and variables in the options object', function(done) {
-            var stream = preference({
+            var stream = plugin({
                 'https://github.com/wf9a5m75/phonegap-googlemaps-plugin': {
                     version: '1.2.0',
                     variables : {
@@ -467,7 +467,7 @@ describe('gulp-cordova-plugin', function() {
         });
         
         it('Should do nothing with the options object if provided', function(done) {
-            var stream = preference({
+            var stream = plugin({
                 'org.apache.cordova.dialogs': 'latest',
                 'org.apache.cordova.camera': '1.0.0'
             }, {version: '1.0.0', variables: {foo: 'bar'}});
