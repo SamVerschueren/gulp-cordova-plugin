@@ -257,11 +257,12 @@ describe('gulp-cordova-plugin', function() {
         it('Should call the add plugin method twice if two plugins are provided', function(done) {
             var stream = preference([
                 'org.apache.cordova.dialogs',
-                'org.apache.cordova.camera'
+                'org.apache.cordova.camera',
+                'https://github.com/kristianhristov/cordova-cookie-master'
             ]);
             
             stream.on('end', function() {
-                cordova.plugin.should.have.been.calledTwice;
+                cordova.plugin.should.have.been.calledThrice;
                 
                 done();
             });
@@ -274,12 +275,14 @@ describe('gulp-cordova-plugin', function() {
         it('Should add the `org.apache.cordova.dialogs` and `org.apache.cordova.camera` plugins', function(done) {
             var stream = preference([
                 'org.apache.cordova.dialogs',
-                'org.apache.cordova.camera'
+                'org.apache.cordova.camera',
+                'https://github.com/kristianhristov/cordova-cookie-master'
             ]);
             
             stream.on('end', function() {
                 cordova.plugin.should.have.been.calledWith('add', 'org.apache.cordova.dialogs', {});
                 cordova.plugin.should.have.been.calledWith('add', 'org.apache.cordova.camera', {});
+                cordova.plugin.should.have.been.calledWith('add', 'https://github.com/kristianhristov/cordova-cookie-master', {});
                 
                 done();
             });
@@ -330,12 +333,14 @@ describe('gulp-cordova-plugin', function() {
         it('Should add the `org.apache.cordova.dialogs@latest` and `org.apache.cordova.camera@1.0.0` plugins', function(done) {
             var stream = preference({
                 'org.apache.cordova.dialogs': 'latest',
-                'org.apache.cordova.camera': '1.0.0'
+                'org.apache.cordova.camera': '1.0.0',
+                'https://github.com/wf9a5m75/phonegap-googlemaps-plugin': 'latest'
             });
             
             stream.on('end', function() {
                 cordova.plugin.should.have.been.calledWith('add', 'org.apache.cordova.dialogs@latest', {});
                 cordova.plugin.should.have.been.calledWith('add', 'org.apache.cordova.camera@1.0.0', {});
+                cordova.plugin.should.have.been.calledWith('add', 'https://github.com/wf9a5m75/phonegap-googlemaps-plugin', {});
                 
                 done();
             });
@@ -387,6 +392,71 @@ describe('gulp-cordova-plugin', function() {
                 cordova.plugin.should.have.been.calledWith('add', 'org.apache.cordova.dialogs@latest', {});
                 cordova.plugin.should.have.been.calledWith('add', 'org.apache.cordova.camera@1.0.0', {});
                 cordova.plugin.should.have.been.calledWith('add', 'plugin.google.maps@1.0.0', { cli_variables: { 'API_KEY_FOR_ANDROID': 'ANDROID_KEY', 'API_KEY_FOR_IOS': 'IOS_KEY' }});
+                
+                done();
+            });
+            
+            stream.on('data', function() {});
+            
+            stream.end();
+        });
+        
+        it('Should add the git based `https://github.com/wf9a5m75/phonegap-googlemaps-plugin` plugin', function(done) {
+            var stream = preference({
+                'https://github.com/wf9a5m75/phonegap-googlemaps-plugin': {
+                    variables : {
+                        'API_KEY_FOR_ANDROID': 'ANDROID_KEY',
+                        'API_KEY_FOR_IOS': 'IOS_KEY'
+                    }
+                }
+            });
+            
+            stream.on('end', function() {
+                cordova.plugin.should.have.been.calledWith('add', 'https://github.com/wf9a5m75/phonegap-googlemaps-plugin', { cli_variables: { 'API_KEY_FOR_ANDROID': 'ANDROID_KEY', 'API_KEY_FOR_IOS': 'IOS_KEY' }});
+                
+                done();
+            });
+            
+            stream.on('data', function() {});
+            
+            stream.end();
+        });
+        
+        it('Should add the git based `plugin.google.maps` plugin with variables if the version `latest` and variables are added in the options object', function(done) {
+            var stream = preference({
+                'https://github.com/wf9a5m75/phonegap-googlemaps-plugin': {
+                    version: 'latest',
+                    variables : {
+                        'API_KEY_FOR_ANDROID': 'ANDROID_KEY',
+                        'API_KEY_FOR_IOS': 'IOS_KEY'
+                    }
+                }
+            });
+            
+            stream.on('end', function() {
+                cordova.plugin.should.have.been.calledWith('add', 'https://github.com/wf9a5m75/phonegap-googlemaps-plugin', { cli_variables: { 'API_KEY_FOR_ANDROID': 'ANDROID_KEY', 'API_KEY_FOR_IOS': 'IOS_KEY' }});
+                
+                done();
+            });
+            
+            stream.on('data', function() {});
+            
+            stream.end();
+        });
+        
+        it('Should add the git based `plugin.google.maps@1.2.0` plugin with the version and variables in the options object', function(done) {
+            var stream = preference({
+                'https://github.com/wf9a5m75/phonegap-googlemaps-plugin': {
+                    version: '1.2.0',
+                    variables : {
+                        'API_KEY_FOR_ANDROID': 'ANDROID_KEY',
+                        'API_KEY_FOR_IOS': 'IOS_KEY'
+                    }
+                }
+            });
+            
+            stream.on('end', function() {
+                cordova.plugin.should.have.been.calledWith('add', 'https://github.com/wf9a5m75/phonegap-googlemaps-plugin#v1.2.0', { cli_variables: { 'API_KEY_FOR_ANDROID': 'ANDROID_KEY', 'API_KEY_FOR_IOS': 'IOS_KEY' }});
                 
                 done();
             });
