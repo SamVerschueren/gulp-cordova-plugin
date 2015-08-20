@@ -85,8 +85,15 @@ module.exports = function(plugins, options) {
  */
 function add(plugin, opts) {    
     return Q.fcall(function() {
-        // Make sure the version is attached if it is specified        
-        plugin = opts.version ? plugin + '@' + opts.version : plugin;
+        if(plugin.indexOf('http') === 0 || plugin.indexOf('git') === 0) {
+            // Remove the trailing slashes
+            plugin = plugin.replace(/\/+$/, '');
+            plugin = opts.version && opts.version !== 'latest' ? plugin + '#v' + opts.version : plugin;
+        }
+        else {
+            // Make sure the version is attached if it is specified        
+            plugin = opts.version ? plugin + '@' + opts.version : plugin;
+        }
         
         // Remove the version from the options object
         delete opts.version;

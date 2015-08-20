@@ -109,6 +109,147 @@ describe('gulp-cordova-plugin', function() {
             
             stream.end();
         });
+        
+        it('Should add the git based `plugin.google.maps`', function(done) {
+            var stream = preference('https://github.com/wf9a5m75/phonegap-googlemaps-plugin');
+            
+            stream.on('end', function() {
+                cordova.plugin.should.have.been.calledWith('add', 'https://github.com/wf9a5m75/phonegap-googlemaps-plugin', {});
+                
+                done();
+            });
+            
+            stream.on('data', function() {});
+            
+            stream.end();
+        });
+        
+        it('Should add the git based `plugin.google.maps` plugin with one trailing slash', function(done) {
+            var stream = preference('https://github.com/wf9a5m75/phonegap-googlemaps-plugin/');
+            
+            stream.on('end', function() {
+                cordova.plugin.should.have.been.calledWith('add', 'https://github.com/wf9a5m75/phonegap-googlemaps-plugin', {});
+                
+                done();
+            });
+            
+            stream.on('data', function() {});
+            
+            stream.end();
+        });
+        
+        it('Should add the git based `plugin.google.maps` plugin with multiple trailing slashes', function(done) {
+            var stream = preference('https://github.com/wf9a5m75/phonegap-googlemaps-plugin///');
+            
+            stream.on('end', function() {
+                cordova.plugin.should.have.been.calledWith('add', 'https://github.com/wf9a5m75/phonegap-googlemaps-plugin', {});
+                
+                done();
+            });
+            
+            stream.on('data', function() {});
+            
+            stream.end();
+        });
+        
+        it('Should add the git based `plugin.google.maps` plugin with no version if the version `latest` is provided', function(done) {
+            var stream = preference('https://github.com/wf9a5m75/phonegap-googlemaps-plugin', 'latest');
+            
+            stream.on('end', function() {
+                cordova.plugin.should.have.been.calledWith('add', 'https://github.com/wf9a5m75/phonegap-googlemaps-plugin', {});
+                
+                done();
+            });
+            
+            stream.on('data', function() {});
+            
+            stream.end();
+        });
+        
+        it('Should add the git based `plugin.google.maps@1.2.0` plugin if a version is provided', function(done) {
+            var stream = preference('https://github.com/wf9a5m75/phonegap-googlemaps-plugin', '1.2.0');
+            
+            stream.on('end', function() {
+                cordova.plugin.should.have.been.calledWith('add', 'https://github.com/wf9a5m75/phonegap-googlemaps-plugin#v1.2.0', {});
+                
+                done();
+            });
+            
+            stream.on('data', function() {});
+            
+            stream.end();
+        });
+        
+        it('Should add the git based `plugin.google.maps@1.2.0` plugin if the version is provided in the object as 2nd argument', function(done) {
+            var stream = preference('https://github.com/wf9a5m75/phonegap-googlemaps-plugin', {version: '1.2.0'});
+            
+            stream.on('end', function() {
+                cordova.plugin.should.have.been.calledWith('add', 'https://github.com/wf9a5m75/phonegap-googlemaps-plugin#v1.2.0', {});
+                
+                done();
+            });
+            
+            stream.on('data', function() {});
+            
+            stream.end();
+        });
+        
+        it('Should add the git based `plugin.google.maps` plugin with variables if the variables are added in the options object', function(done) {
+            var vars = {
+                'API_KEY_FOR_ANDROID': 'ANDROID_KEY',
+                'API_KEY_FOR_IOS': 'IOS_KEY'
+            };
+            
+            var stream = preference('https://github.com/wf9a5m75/phonegap-googlemaps-plugin', {variables: vars});
+            
+            stream.on('end', function() {
+                cordova.plugin.should.have.been.calledWith('add', 'https://github.com/wf9a5m75/phonegap-googlemaps-plugin', {cli_variables: vars});
+                
+                done();
+            });
+            
+            stream.on('data', function() {});
+            
+            stream.end();
+        });
+        
+        it('Should add the git based `plugin.google.maps@1.2.0` plugin with variables if the version and variables are added in the options object', function(done) {
+            var vars = {
+                'API_KEY_FOR_ANDROID': 'ANDROID_KEY',
+                'API_KEY_FOR_IOS': 'IOS_KEY'
+            };
+            
+            var stream = preference('https://github.com/wf9a5m75/phonegap-googlemaps-plugin', {version: '1.2.0', variables: vars});
+            
+            stream.on('end', function() {
+                cordova.plugin.should.have.been.calledWith('add', 'https://github.com/wf9a5m75/phonegap-googlemaps-plugin#v1.2.0', {cli_variables: vars});
+                
+                done();
+            });
+            
+            stream.on('data', function() {});
+            
+            stream.end();
+        });
+        
+        it('Should add the git based `plugin.google.maps` plugin with variables if the version `latest` and variables are added in the options object', function(done) {
+            var vars = {
+                'API_KEY_FOR_ANDROID': 'ANDROID_KEY',
+                'API_KEY_FOR_IOS': 'IOS_KEY'
+            };
+            
+            var stream = preference('https://github.com/wf9a5m75/phonegap-googlemaps-plugin', {version: 'latest', variables: vars});
+            
+            stream.on('end', function() {
+                cordova.plugin.should.have.been.calledWith('add', 'https://github.com/wf9a5m75/phonegap-googlemaps-plugin', {cli_variables: vars});
+                
+                done();
+            });
+            
+            stream.on('data', function() {});
+            
+            stream.end();
+        });
     });
     
     describe('Plugin list', function() {
