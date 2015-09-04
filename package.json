@@ -26,6 +26,9 @@
     "url": "https://github.com/SamVerschueren/gulp-cordova-plugin/issues"
   },
   "homepage": "https://github.com/SamVerschueren/gulp-cordova-plugin",
+  "files": [
+    "index.js"
+  ],
   "dependencies": {
     "cordova-lib": "^5.0.0",
     "gulp-util": "^3.0.4",
