@@ -34,10 +34,10 @@
     "gulp-util": "^3.0.4",
     "lodash": "^3.10.1",
     "pinkie-promise": "^2.0.0",
-    "through2": "^0.6.5"
+    "through2": "^2.0.0"
   },
   "devDependencies": {
-    "ava": "^0.6.1",
+    "ava": "*",
     "sinon": "^1.15.4",
     "xo": "*"
   },
