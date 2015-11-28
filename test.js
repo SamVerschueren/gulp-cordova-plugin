@@ -8,10 +8,12 @@ import fn from './';
 function plugin(plugin, opts) {
     let file;
 
-	return new Promise(resolve => {
+	return new Promise((resolve, reject)=> {
 		const stream = fn(plugin, opts);
 
-		stream.on('data', () => {});
+		stream.on('data', () => { });
+		
+		stream.on('error', reject);
 
 		stream.on('end', resolve);
 
@@ -106,4 +108,14 @@ test.serial('options object in plugin object', async t => {
 
 	t.same(cordova.raw.plugin.args[0], ['add', 'foo@latest', {}]);
 	t.same(cordova.raw.plugin.args[1], ['add', 'bar@1.0.0', {cli_variables: {baz: 'baz'}}]);
+});
+
+test.serial('throw error', async t => {
+	cordova.raw.plugin = function () {
+		return new Promise((resolve, reject) => {
+			reject(new Error('something went wrong'));
+		});
+	}
+	
+	await t.throws(plugin('foo'), 'something went wrong');
 });

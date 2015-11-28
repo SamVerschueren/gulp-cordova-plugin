@@ -4,7 +4,8 @@
   "description": "Add plugins to your cordova project.",
   "main": "index.js",
   "scripts": {
-    "test": "xo && ava"
+    "test": "xo && nyc ava",
+    "coveralls": "nyc report --reporter=text-lcov | coveralls"
   },
   "repository": {
     "type": "git",
@@ -38,6 +39,7 @@
   },
   "devDependencies": {
     "ava": "*",
+    "nyc": "^3.2.2",
     "sinon": "^1.15.4",
     "xo": "*"
   },
