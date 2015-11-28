@@ -4,7 +4,7 @@
   "description": "Add plugins to your cordova project.",
   "main": "index.js",
   "scripts": {
-    "test": "node_modules/.bin/mocha test"
+    "test": "xo && ava"
   },
   "repository": {
     "type": "git",
@@ -30,16 +30,28 @@
     "index.js"
   ],
   "dependencies": {
-    "cordova-lib": "^5.0.0",
+    "cordova-lib": "^5.4.1",
     "gulp-util": "^3.0.4",
     "lodash": "^3.10.1",
-    "q": "^1.4.1",
+    "pinkie-promise": "^2.0.0",
     "through2": "^0.6.5"
   },
   "devDependencies": {
-    "chai": "^3.2.0",
-    "mocha": "^2.2.5",
+    "ava": "^0.6.1",
     "sinon": "^1.15.4",
-    "sinon-chai": "^2.8.0"
+    "xo": "*"
+  },
+  "xo": {
+    "rules": {
+      "camelcase": [
+        2,
+        {
+          "properties": "never"
+        }
+      ]
+    },
+    "ignores": [
+      "test.js"
+    ]
   }
 }

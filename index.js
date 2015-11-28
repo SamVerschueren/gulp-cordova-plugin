@@ -1,107 +1,71 @@
 'use strict';
+var through = require('through2');
+var gutil = require('gulp-util');
+var cordova = require('cordova-lib').cordova.raw;
+var Promise = require('pinkie-promise');
+var _ = require('lodash');
 
-/**
- * Creates a new cordova project in the current directory.
- *
- * @author Sam Verschueren      <sam.verschueren@gmail.com>
- * @since  22 April 2015
- */
+module.exports = function (plugins, options) {
+	options = options || {};
 
-// module dependencies
-var path = require('path'),
-    through = require('through2'),
-    gutil = require('gulp-util'),
-    cordova = require('cordova-lib').cordova.raw,
-    Q = require('q'),
-    _ = require('lodash');
+	var pluginList;
 
-// export the module
-module.exports = function(plugins, options) {
+	if (Array.isArray(plugins) || _.isPlainObject(plugins)) {
+		pluginList = plugins;
+		options = {};
+	} else {
+		pluginList = [plugins];
+	}
 
-    options = options || {};
+	return through.obj(function (file, enc, cb) {
+		process.env.PWD = file.path;
 
-    var pluginList;
-    
-    if(Array.isArray(plugins) || _.isPlainObject(plugins)) {
-        pluginList = plugins;
-        options = {};
-    }
-    else {
-        pluginList = [plugins];
-    }
+		var self = this;
 
-    return through.obj(function(file, enc, cb) {
-        // Change the working directory
-        process.env.PWD = file.path;
+		var promises = _.map(pluginList, function (plugin, key) {
+			if (_.isPlainObject(pluginList)) {
+				var temp = key;
 
-        // Pipe the file to the next step
-        this.push(file);
+				key = plugin;
+				plugin = temp;
+			}
 
-        cb();
-    }, function(cb) {
-        var promises = _.map(pluginList, function(plugin, key) {
-            if(_.isPlainObject(pluginList)) {
-                // If the plugin list is an object, we should switch the plugin and key
-                var temp = key;
-                
-                key = plugin;
-                plugin = temp;
-            }
-            
-            var opts = {};
-            
-            if(key.variables || options.variables) {
-                // Add the cli variables
-                opts.cli_variables = key.variables || options.variables;
-            }
-            
-            if(key.version || options.version || _.isString(key) || _.isString(options)) {
-                // Add the version to the options object
-                opts.version = key.version || options.version || key || options;
-            }
-            
-            // Fire the add method
-            return add(plugin, opts);
-        });
-        
-        Q.all(promises)
-            .then(function() {
-                // Call the callback if all the plugins are added correctly
-                cb();
-            })
-            .catch(function(err) {
-                // Return an error if something happened
-                cb(new gutil.PluginError('gulp-cordova-plugin', err.message));
-            });
-    });
+			var opts = {};
+
+			if (key.variables || options.variables) {
+				opts.cli_variables = key.variables || options.variables;
+			}
+
+			if (key.version || options.version || _.isString(key) || _.isString(options)) {
+				opts.version = key.version || options.version || key || options;
+			}
+
+			return add(plugin, opts);
+		});
+
+		Promise.all(promises)
+			.then(function () {
+				self.push(file);
+
+				cb();
+			})
+			.catch(function (err) {
+				cb(new gutil.PluginError('gulp-cordova-plugin', err.message));
+			});
+	});
 };
 
-/**
- * Returns a promise that will add the plugin to the current working
- * directory cordova project.
- * 
- * @param {String} plugin   The name of the plugin that should be added.
- * @param {Object} opts     The options object.
- */
-function add(plugin, opts) {    
-    return Q.fcall(function() {
-        if(plugin.indexOf('http') === 0 || plugin.indexOf('git') === 0) {
-            // Remove the trailing slashes
-            plugin = plugin.replace(/\/+$/, '');
-            plugin = opts.version && opts.version !== 'latest' ? plugin + '#v' + opts.version : plugin;
-        }
-        else {
-            // Make sure the version is attached if it is specified        
-            plugin = opts.version ? plugin + '@' + opts.version : plugin;
-        }
-        
-        // Remove the version from the options object
-        delete opts.version;
-        
-        // Print which plugin will be added
-        gutil.log('\tadd ' + plugin);
-        
-        // Add the plugin without options
-        return cordova.plugin('add', plugin, opts);
-    });
+function add(plugin, opts) {
+	if (plugin.indexOf('http') === 0 || plugin.indexOf('git') === 0) {
+		plugin = plugin.replace(/\/+$/, '');
+		plugin = opts.version && opts.version !== 'latest' ? plugin + '#v' + opts.version : plugin;
+	} else {
+		plugin = opts.version ? plugin + '@' + opts.version : plugin;
+	}
+
+	delete opts.version;
+
+	gutil.log('\tadd ' + plugin);
+
+	return cordova.plugin('add', plugin, opts);
 }
