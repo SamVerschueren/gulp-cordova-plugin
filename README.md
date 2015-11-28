@@ -1,12 +1,13 @@
 # gulp-cordova-plugin
 
 [![Build Status](https://travis-ci.org/SamVerschueren/gulp-cordova-plugin.svg?branch=master)](https://travis-ci.org/SamVerschueren/gulp-cordova-plugin)
+[![Coverage Status](https://coveralls.io/repos/SamVerschueren/gulp-cordova-plugin/badge.svg?branch=master)](https://coveralls.io/r/SamVerschueren/gulp-cordova-plugin?branch=master)
 
 > Add plugins to your cordova project.
 
 ## Installation
 
-```bash
+```
 npm install --save-dev gulp-cordova-plugin
 ```
 
@@ -17,12 +18,12 @@ npm install --save-dev gulp-cordova-plugin
 The following example will add three plugins to the cordova project. The `plugin.google.maps` plugin expects two extra
 variables.
 
-```javascript
-var gulp = require('gulp'),
-    create = require('gulp-cordova-create'),
-    plugin = require('gulp-cordova-plugin');
+```js
+const gulp = require('gulp');
+const create = require('gulp-cordova-create');
+const plugin = require('gulp-cordova-plugin');
 
-gulp.task('build', function() {
+gulp.task('build', () => {
     return gulp.src('dist')
         .pipe(create())
         .pipe(plugin('org.apache.cordova.dialogs'))
@@ -33,12 +34,12 @@ gulp.task('build', function() {
 
 It's also possible to use a specific version of a plugin.
 
-```javascript
-var gulp = require('gulp'),
-    create = require('gulp-cordova-create'),
-    plugin = require('gulp-cordova-plugin');
+```js
+const gulp = require('gulp');
+const create = require('gulp-cordova-create');
+const plugin = require('gulp-cordova-plugin');
 
-gulp.task('build', function() {
+gulp.task('build', () => {
     return gulp.src('dist')
         .pipe(create())
         .pipe(plugin('org.apache.cordova.dialogs', '1.0.0'))
@@ -51,10 +52,10 @@ gulp.task('build', function() {
 
 You can also pass an array of plugins instead of one plugin at a time.
 
-```javascript
-var gulp = require('gulp'),
-    create = require('gulp-cordova-create'),
-    plugin = require('gulp-cordova-plugin');
+```js
+const gulp = require('gulp');
+const create = require('gulp-cordova-create');
+const plugin = require('gulp-cordova-plugin');
 
 gulp.task('build', function() {
     return gulp.src('dist')
@@ -71,10 +72,10 @@ an options object for a plugin and thus it is not possible to provide extra vari
 
 You can change the version by adding `@x.y.z` at the end of the name.
 
-```javascript
-var gulp = require('gulp'),
-    create = require('gulp-cordova-create'),
-    plugin = require('gulp-cordova-plugin');
+```js
+const gulp = require('gulp');
+const create = require('gulp-cordova-create');
+const plugin = require('gulp-cordova-plugin');
 
 gulp.task('build', function() {
     return gulp.src('dist')
@@ -90,10 +91,10 @@ gulp.task('build', function() {
 
 A third way of adding plugins is by passing an object with the name of the plugin as key and a version or options object as value.
 
-```javascript
-var gulp = require('gulp'),
-    create = require('gulp-cordova-create'),
-    plugin = require('gulp-cordova-plugin');
+```js
+const gulp = require('gulp');
+const create = require('gulp-cordova-create');
+const plugin = require('gulp-cordova-plugin');
 
 gulp.task('build', function() {
     return gulp.src('dist')
@@ -110,7 +111,7 @@ This approach is fast because it adds the plugins in parallel and the benefit is
 
 ## API
 
-### plugin(plugin [, options])
+### plugin(plugin, [options])
 
 #### plugin
 
@@ -146,10 +147,6 @@ The key of the object is the name of the plugin and the value is either the vers
 ## Related
 
 See [`gulp-cordova`](https://github.com/SamVerschueren/gulp-cordova) for the full list of available packages.
-
-## Contributors
-
-- Sam Verschueren [<sam.verschueren@gmail.com>]
 
 ## License
 
