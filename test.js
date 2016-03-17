@@ -6,13 +6,11 @@ import gutil from 'gulp-util';
 import fn from './';
 
 function plugin(plugin, opts) {
-    let file;
-
-	return new Promise((resolve, reject)=> {
+	return new Promise((resolve, reject) => {
 		const stream = fn(plugin, opts);
 
 		stream.on('data', () => { });
-		
+
 		stream.on('error', reject);
 
 		stream.on('end', resolve);
@@ -23,9 +21,8 @@ function plugin(plugin, opts) {
 	});
 }
 
-test.beforeEach(t => {
+test.beforeEach(() => {
 	cordova.raw.plugin = sinon.stub().returns(Promise.resolve());
-	t.end();
 });
 
 test.serial('add plugin', async t => {
@@ -115,7 +112,7 @@ test.serial('throw error', async t => {
 		return new Promise((resolve, reject) => {
 			reject(new Error('something went wrong'));
 		});
-	}
-	
-	await t.throws(plugin('foo'), 'something went wrong');
+	};
+
+	t.throws(plugin('foo'), 'something went wrong');
 });
