@@ -5,11 +5,13 @@
 
 > Add plugins to your cordova project.
 
+
 ## Installation
 
 ```
-npm install --save-dev gulp-cordova-plugin
+$ npm install --save-dev gulp-cordova-plugin
 ```
+
 
 ## Usage
 
@@ -109,6 +111,7 @@ gulp.task('build', function() {
 
 This approach is fast because it adds the plugins in parallel and the benefit is that you can pass in an options object.
 
+
 ## API
 
 ### plugin(plugin, [options])
@@ -144,9 +147,11 @@ Type: `object`
 
 The key of the object is the name of the plugin and the value is either the version number or an options object.
 
+
 ## Related
 
 See [`gulp-cordova`](https://github.com/SamVerschueren/gulp-cordova) for the full list of available packages.
+
 
 ## License
 
