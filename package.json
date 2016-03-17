@@ -31,7 +31,7 @@
     "index.js"
   ],
   "dependencies": {
-    "cordova-lib": "^5.4.1",
+    "cordova-lib": "^6.0.0",
     "gulp-util": "^3.0.4",
     "lodash": "^3.10.1",
     "pinkie-promise": "^2.0.0",
