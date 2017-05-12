@@ -39,6 +39,10 @@ module.exports = function (plugins, options) {
 			if (key.version || options.version || _.isString(key) || _.isString(options)) {
 				opts.version = key.version || options.version || key || options;
 			}
+			
+			if (key.fetch || options.fetch) {
+				opts.fetch = key.fetch || options.fetch;
+			}
 
 			return add(plugin, opts);
 		});
