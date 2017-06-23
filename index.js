@@ -2,7 +2,10 @@
 const through = require('through2');
 const gutil = require('gulp-util');
 const cordova = require('cordova-lib').cordova.raw;
+const pLimit = require('p-limit');
 const isPlainObj = require('is-plain-obj');
+
+const limit = pLimit(2);
 
 const parseInput = (plugins, options) => {
 	let ret = {};
@@ -55,7 +58,7 @@ module.exports = (plugins, options) => {
 				opts.version = options.version || options;
 			}
 
-			promises.push(add(plugin, opts));
+			promises.push(limit(() => add(plugin, opts)));
 		}
 
 		Promise.all(promises)
