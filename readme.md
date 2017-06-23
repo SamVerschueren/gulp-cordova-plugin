@@ -118,7 +118,7 @@ This approach is fast because it adds the plugins in parallel and the benefit is
 
 #### plugin
 
-*Required*  
+*Required*
 Type: `string`
 
 The plugin that should be added to the project.
@@ -133,7 +133,7 @@ Extra options for the plugin that should be added or the version number of the p
 
 #### plugins
 
-*Required*  
+*Required*<br>
 Type: `string[]`
 
 A list of plugins that should be added to the project.
@@ -142,7 +142,7 @@ A list of plugins that should be added to the project.
 
 #### plugins
 
-*Required*  
+*Required*<br>
 Type: `object`
 
 The key of the object is the name of the plugin and the value is either the version number or an options object.

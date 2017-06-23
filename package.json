@@ -1,16 +1,24 @@
 {
   "name": "gulp-cordova-plugin",
   "version": "1.5.0",
-  "description": "Add plugins to your cordova project.",
+  "description": "Add plugins to your cordova project",
+  "license": "MIT",
+  "repository": "SamVerschueren/gulp-cordova-plugin",
+  "author": {
+    "name": "Sam Verschueren",
+    "email": "sam.verschueren@gmail.com"
+  },
   "main": "index.js",
+  "engines": {
+    "node": ">=4"
+  },
   "scripts": {
     "test": "xo && nyc ava",
     "coveralls": "nyc report --reporter=text-lcov | coveralls"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/SamVerschueren/gulp-cordova-plugin.git"
-  },
+  "files": [
+    "index.js"
+  ],
   "keywords": [
     "gulp",
     "gulpjs",
@@ -18,23 +26,10 @@
     "plugin",
     "add"
   ],
-  "author": {
-    "name": "Sam Verschueren",
-    "email": "sam.verschueren@gmail.com"
-  },
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/SamVerschueren/gulp-cordova-plugin/issues"
-  },
-  "homepage": "https://github.com/SamVerschueren/gulp-cordova-plugin",
-  "files": [
-    "index.js"
-  ],
   "dependencies": {
     "cordova-lib": "^6.0.0",
     "gulp-util": "^3.0.4",
-    "lodash": "^3.10.1",
-    "pinkie-promise": "^2.0.0",
+    "is-plain-obj": "^1.1.0",
     "through2": "^2.0.0"
   },
   "devDependencies": {
@@ -43,15 +38,5 @@
     "nyc": "^3.2.2",
     "sinon": "^1.15.4",
     "xo": "*"
-  },
-  "xo": {
-    "rules": {
-      "camelcase": [
-        2,
-        {
-          "properties": "never"
-        }
-      ]
-    }
   }
 }
