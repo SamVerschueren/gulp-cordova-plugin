@@ -1,6 +1,6 @@
 {
   "name": "gulp-cordova-plugin",
-  "version": "1.5.0",
+  "version": "2.0.0",
   "description": "Add plugins to your cordova project",
   "license": "MIT",
   "repository": "SamVerschueren/gulp-cordova-plugin",
