@@ -27,7 +27,7 @@
     "add"
   ],
   "dependencies": {
-    "cordova-lib": "^6.0.0",
+    "cordova-lib": "^7.0.1",
     "gulp-util": "^3.0.4",
     "is-plain-obj": "^1.1.0",
     "p-limit": "^1.1.0",
