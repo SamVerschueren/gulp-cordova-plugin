@@ -5,7 +5,7 @@ const cordova = require('cordova-lib').cordova.raw;
 const pLimit = require('p-limit');
 const isPlainObj = require('is-plain-obj');
 
-const limit = pLimit(2);
+const limit = pLimit(1);
 
 const parseInput = (plugins, options) => {
 	let ret = {};
