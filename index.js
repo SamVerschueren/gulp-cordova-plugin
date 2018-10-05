@@ -57,7 +57,7 @@ module.exports = (plugins, options) => {
 			if (options.version || typeof options === 'string') {
 				opts.version = options.version || options;
 			}
-			
+
 			if (options.fetch) {
 				opts.fetch = options.fetch;
 			}
