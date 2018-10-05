@@ -1,7 +1,7 @@
 'use strict';
 const through = require('through2');
 const gutil = require('gulp-util');
-const cordova = require('cordova-lib').cordova.raw;
+const {cordova} = require('cordova-lib');
 const pLimit = require('p-limit');
 const isPlainObj = require('is-plain-obj');
 
