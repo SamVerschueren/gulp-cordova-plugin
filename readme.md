@@ -34,7 +34,7 @@ gulp.task('build', () => {
 });
 ```
 
-It's also possible to use a specific version of a plugin.
+It's also possible to use a specific version of a plugin as well as to use the fetch option.
 
 ```js
 const gulp = require('gulp');
@@ -46,7 +46,8 @@ gulp.task('build', () => {
         .pipe(create())
         .pipe(plugin('org.apache.cordova.dialogs', '1.0.0'))
         .pipe(plugin('org.apache.cordova.camera', 'latest'))
-        .pipe(plugin('plugin.google.maps', {version: '2.3.0', variables: {'API_KEY_FOR_ANDROID': 'xxx', 'API_KEY_FOR_IOS': 'xxx'}}));
+        .pipe(plugin('plugin.google.maps', {version: '2.3.0', variables: {'API_KEY_FOR_ANDROID': 'xxx', 'API_KEY_FOR_IOS': 'xxx'}}))
+        .pipe(plugin('cordova-plugin-localization-strings', {version: 'latest', fetch: true}));
 });
 ```
 
@@ -104,7 +105,8 @@ gulp.task('build', function() {
         .pipe(plugin({
             'org.apache.cordova.dialogs': '1.0.0',
             'org.apache.cordova.camera': 'latest',
-            'plugin.google.maps': {version: '2.3.0', variables: {'API_KEY_FOR_ANDROID': 'xxx', 'API_KEY_FOR_IOS': 'xxx'}}
+            'plugin.google.maps': {version: '2.3.0', variables: {'API_KEY_FOR_ANDROID': 'xxx', 'API_KEY_FOR_IOS': 'xxx'}},
+            'cordova-plugin-localization-strings', {version: 'latest', fetch: true}
         }));
 });
 ```

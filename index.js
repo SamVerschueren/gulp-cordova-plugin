@@ -58,6 +58,10 @@ module.exports = (plugins, options) => {
 				opts.version = options.version || options;
 			}
 
+			if (options.fetch) {
+				opts.fetch = options.fetch;
+			}
+
 			promises.push(limit(() => add(plugin, opts)));
 		}
 
