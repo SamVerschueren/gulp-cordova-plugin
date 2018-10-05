@@ -10,7 +10,7 @@
   },
   "main": "index.js",
   "engines": {
-    "node": ">=4"
+    "node": ">=6"
   },
   "scripts": {
     "test": "xo && nyc ava",
@@ -34,10 +34,10 @@
     "through2": "^2.0.0"
   },
   "devDependencies": {
-    "ava": "*",
+    "ava": "^0.25.0",
     "coveralls": "^2.11.4",
     "nyc": "^3.2.2",
     "sinon": "^1.15.4",
-    "xo": "*"
+    "xo": "^0.23.0"
   }
 }

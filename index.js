@@ -41,7 +41,7 @@ const add = (plugin, opts) => {
 module.exports = (plugins, options) => {
 	const pluginObject = parseInput(plugins, options);
 
-	return through.obj(function (file, enc, cb) {
+	return through.obj((file, enc, cb) => {
 		process.env.PWD = file.path;
 
 		const promises = [];
@@ -63,12 +63,10 @@ module.exports = (plugins, options) => {
 
 		Promise.all(promises)
 			.then(() => {
-				this.push(file);
-
-				cb();
+				cb(null, file);
 			})
-			.catch(err => {
-				cb(new gutil.PluginError('gulp-cordova-plugin', err.message));
+			.catch(error => {
+				cb(new gutil.PluginError('gulp-cordova-plugin', error.message));
 			});
 	});
 };

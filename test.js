@@ -2,7 +2,7 @@ import test from 'ava';
 import {cordova} from 'cordova-lib';
 import sinon from 'sinon';
 import gutil from 'gulp-util';
-import fn from './';
+import fn from '.';
 
 function plugin(plugin, opts) {
 	return new Promise((resolve, reject) => {
